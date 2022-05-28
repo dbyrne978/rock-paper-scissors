@@ -20,6 +20,7 @@ let game = function() {
     let resultsArray = [];  // ordered array of roundResult values
     let gameMsg = "Let's play 5 rounds of Rock, Paper, Scissors!\n" +
         "Please enter ROCK, PAPER, or SCISSORS:\n";
+    let originalGameMsgLength = gameMsg.length;
 
     for (let i = 0; i < 5; i++) {
         // get playerSelection and determine roundResult
@@ -29,13 +30,13 @@ let game = function() {
         let roundResult = playRound(playerSelection, computerSelection);
         // display result of round message
         alert(`Opponent chose ${computerSelection.toUpperCase()}, you ${roundResult}!`);
-        // update results in message and array
+        // update results in gameMsg and resultsArray
         gameMsg += `Round ${i+1}: ${roundResult}\n`;
         resultsArray[i] = roundResult;
     };
-    // calculate final results and display
-    //   tbd...
-    // alert(`Results:\n${results}`);
+    let gameResultMsg = calculateGameResult(resultsArray);
+    // display final results message
+    alert(`${gameMsg.substring(originalGameMsgLength)}\n${gameResultMsg}`);
 };
 
 let getPlayerSelection = function(gameMsg) {
@@ -46,4 +47,15 @@ let getPlayerSelection = function(gameMsg) {
         playerSelection = playerSelection.toLowerCase();
     };
     return playerSelection;
+};
+
+let calculateGameResult = function(resultsArray) {
+    let wins = 0;
+    for (let i = 0; i < resultsArray.length; i++) {
+        if (resultsArray[i] == "win") wins++;
+        if (resultsArray[i] == "lose") wins--;
+    };
+    if (wins == 0) return "The overall game was a tie!";
+    if (wins < 0) return "You lost the overall game!";
+    if (wins > 0) return "You won the overall game!";
 };
