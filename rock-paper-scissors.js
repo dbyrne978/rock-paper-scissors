@@ -17,15 +17,21 @@ let playRound = function(playerSelection, computerSelection) {
 };
 
 let game = function() {
+    let resultsArray = [];  // ordered array of roundResult values
     let gameMsg = "Let's play 5 rounds of Rock, Paper, Scissors!\n" +
-        "Please enter rock, paper, or scissors:\n";
+        "Please enter ROCK, PAPER, or SCISSORS:\n";
 
     for (let i = 0; i < 5; i++) {
-        getPlayerSelection(gameMsg);
-        // determineWinner
-        //   tbd...
-        // updateResults
-        gameMsg = gameMsg + `Round ${i+1}: PLACEHOLDER RESULT\n`;
+        // get playerSelection and determine roundResult
+        let playerSelection = getPlayerSelection(gameMsg);
+        if (playerSelection == "player cancelled") return;
+        let computerSelection = computerPlay();
+        let roundResult = playRound(playerSelection, computerSelection);
+        // display result of round message
+        alert(`Opponent chose ${computerSelection.toUpperCase()}, you ${roundResult}!`);
+        // update results in message and array
+        gameMsg += `Round ${i+1}: ${roundResult}\n`;
+        resultsArray[i] = roundResult;
     };
     // calculate final results and display
     //   tbd...
@@ -36,7 +42,8 @@ let getPlayerSelection = function(gameMsg) {
     let playerSelection;
     while(!RpsArray.includes(playerSelection)) {
         playerSelection = prompt(gameMsg);
-        if (playerSelection === null) return;
+        if (playerSelection === null) return "player cancelled";
         playerSelection = playerSelection.toLowerCase();
     };
+    return playerSelection;
 };
