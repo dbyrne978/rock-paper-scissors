@@ -13,29 +13,29 @@ let playRound = function(playerSelection, computerSelection) {
             return (computerSelection == "scissors") ? "lose" : "win";
         case "scissors":
             return (computerSelection == "rock") ? "lose" : "win";
-    }
+    };
 };
 
 let game = function() {
-    let resultsArray = [];  // ordered array of roundResult values
+    let resultsArray = [];
     let gameMsg = "Let's play 5 rounds of Rock, Paper, Scissors!\n" +
-        "Please enter ROCK, PAPER, or SCISSORS:\n";
+            "Please enter ROCK, PAPER, or SCISSORS:\n";
     let originalGameMsgLength = gameMsg.length;
 
     for (let i = 0; i < 5; i++) {
-        // get playerSelection and determine roundResult
         let playerSelection = getPlayerSelection(gameMsg);
         if (playerSelection == "player cancelled") return;
         let computerSelection = computerPlay();
         let roundResult = playRound(playerSelection, computerSelection);
-        // display result of round message
-        alert(`Opponent chose ${computerSelection.toUpperCase()}, you ${roundResult}!`);
-        // update results in gameMsg and resultsArray
+
+        alert(`Opponent chose ${computerSelection.toUpperCase()}, ` +
+                `you ${roundResult}!`);
+
         gameMsg += `Round ${i+1}: ${roundResult}\n`;
         resultsArray[i] = roundResult;
     };
     let gameResultMsg = calculateGameResult(resultsArray);
-    // display final results message
+
     alert(`${gameMsg.substring(originalGameMsgLength)}\n${gameResultMsg}`);
 };
 
