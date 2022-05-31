@@ -4,23 +4,8 @@ let resultsArray = [];  // ordered array of results
 let currentRound = 1;
 const roundResultLog = document.querySelector('#round-result-log');
 
-// DOM manipulation
-const rock = document.createElement("button");
-rock.classList.add("button", "rock");
-rock.textContent = "rock";
-buttons.appendChild(rock);
-
-const paper = document.createElement("button");
-paper.classList.add("button", "paper");
-paper.textContent = "paper";
-buttons.appendChild(paper);
-
-const scissors = document.createElement("button");
-scissors.classList.add("button", "scissors");
-scissors.textContent = "scissors";
-buttons.appendChild(scissors);
-
-const buttonList = document.querySelectorAll("button");
+// playerSelectionButton functionality
+const buttonList = document.querySelectorAll(".player-selection-button");
 buttonList.forEach((button) => {
     button.addEventListener("click", e => {
         onPlayerSelection(e.target.innerText);
