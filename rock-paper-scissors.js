@@ -2,6 +2,7 @@
 const rpsArray = ["rock", "paper", "scissors"];
 let resultsArray = [];  // ordered array of results
 let currentRound = 1;
+const roundResultLog = document.querySelector('#round-result-log');
 
 // DOM manipulation
 const rock = document.createElement("button");
@@ -35,11 +36,11 @@ let playRound = function(playerSelection, computerSelection) {
     if (playerSelection == computerSelection) return "tie";
     switch (playerSelection) {
         case "rock":
-            return (computerSelection == "paper") ? "lose" : "win";
+            return (computerSelection == "paper") ? "loss" : "win";
         case "paper":
-            return (computerSelection == "scissors") ? "lose" : "win";
+            return (computerSelection == "scissors") ? "loss" : "win";
         case "scissors":
-            return (computerSelection == "rock") ? "lose" : "win";
+            return (computerSelection == "rock") ? "loss" : "win";
     };
 };
 
@@ -47,7 +48,7 @@ let calculateGameResult = function(resultsArray) {
     let wins = 0;
     for (let i = 0; i < resultsArray.length; i++) {
         if (resultsArray[i] == "win") wins++;
-        if (resultsArray[i] == "lose") wins--;
+        if (resultsArray[i] == "loss") wins--;
     };
     if (wins == 0) return "The overall game was a tie!";
     if (wins < 0) return "You lost the overall game!";
@@ -65,7 +66,7 @@ let onPlayerSelection = function(playerSelection) {
     if (result == "win") {
         resultText = `Round ${currentRound}: ${result}, `+
                 `${playerSelection} beats ${computerSelection}.`;
-    } else if (result == "lose") {
+    } else if (result == "loss") {
         resultText = `Round ${currentRound}: ${result}, `+
                 `${computerSelection} beats ${playerSelection}.`;
     } else if (result == "tie") {
@@ -74,11 +75,11 @@ let onPlayerSelection = function(playerSelection) {
     };
 
     // display resultText
-    //   tbd
+    let resultTextDiv = document.createElement("div");
+    resultTextDiv.classList.add("round-result");
+    resultTextDiv.textContent = resultText;
+    roundResultLog.appendChild(resultTextDiv);
 
     // maybe display final score
     //   tbd
-
-    // testing with console log
-    console.log(result, playerSelection, computerSelection, resultText);
 };
