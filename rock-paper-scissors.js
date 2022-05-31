@@ -74,6 +74,7 @@ let onPlayerSelection = function(playerSelection) {
         let finalResults = calculateFinalResults();
         displayFinalResults(finalResults);
         disableButtons();
+        addReplayButton();
     };
     currentRound++;
 };
@@ -100,3 +101,13 @@ let disableButtons = function() {
         button.disabled = true;
     });
 };
+
+let addReplayButton = function() {
+    const replayButton = document.createElement("button");
+    replayButton.classList.add("replay-button");
+    replayButton.textContent = "Play again?";
+    replayButton.addEventListener("click", () => {
+        location.reload();
+    });
+    document.body.appendChild(replayButton);
+}
