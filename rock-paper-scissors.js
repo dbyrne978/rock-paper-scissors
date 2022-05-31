@@ -1,3 +1,20 @@
+// DOM manipulation
+const rock = document.createElement("button");
+rock.classList.add("button", "rock");
+rock.textContent = "Rock";
+container.appendChild(rock);
+
+const paper = document.createElement("button");
+paper.classList.add("button", "paper");
+paper.textContent = "Paper";
+container.appendChild(paper);
+
+const scissors = document.createElement("button");
+scissors.classList.add("button", "scissors");
+scissors.textContent = "Scissors";
+container.appendChild(scissors);
+
+// functions
 let RpsArray = ["rock", "paper", "scissors"];
 
 let computerPlay = function() {
