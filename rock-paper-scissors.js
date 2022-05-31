@@ -44,22 +44,11 @@ let playRound = function(playerSelection, computerSelection) {
     };
 };
 
-let calculateGameResult = function(resultsArray) {
-    let wins = 0;
-    for (let i = 0; i < resultsArray.length; i++) {
-        if (resultsArray[i] == "win") wins++;
-        if (resultsArray[i] == "loss") wins--;
-    };
-    if (wins == 0) return "The overall game was a tie!";
-    if (wins < 0) return "You lost the overall game!";
-    if (wins > 0) return "You won the overall game!";
-};
-
 let onPlayerSelection = function(playerSelection) {
     // determine result
     let computerSelection = computerPlay();
     let result = playRound(playerSelection, computerSelection);
-    resultsArray[currentRound] = result;
+    resultsArray[currentRound-1] = result;
     
     // determine resultText
     let resultText = "";
@@ -80,6 +69,34 @@ let onPlayerSelection = function(playerSelection) {
     resultTextDiv.textContent = resultText;
     roundResultLog.appendChild(resultTextDiv);
 
-    // maybe display final score
-    //   tbd
+    // maybe calculate and display final results
+    if (currentRound == 5) {
+        let finalResults = calculateFinalResults();
+        displayFinalResults(finalResults);
+        disableButtons();
+    };
+    currentRound++;
+};
+
+let calculateFinalResults = function() {
+    // determine final results
+    let wins = 0;
+    for (let i = 0; i < resultsArray.length; i++) {
+        if (resultsArray[i] == "win") wins++;
+        if (resultsArray[i] == "loss") wins--;
+    };
+    if (wins == 0) return "The overall game was a tie!";
+    if (wins < 0) return "You lost the overall game!";
+    if (wins > 0) return "You won the overall game!";
+};
+
+let displayFinalResults = function(finalResults) {
+    const finalResultDiv = document.querySelector('#final-results');
+    finalResultDiv.textContent = finalResults;
+};
+
+let disableButtons = function() {
+    buttonList.forEach((button) => {
+        button.disabled = true;
+    });
 };
